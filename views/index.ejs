@@ -1,0 +1,38 @@
+<!-- views/index.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JokeAPI App</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <div id="jokeContainer">
+    <% if (error) { %>
+      <p id="errorText"><%= error %></p>
+    <% } else if (joke) { %>
+      <p id="jokeText">
+        <%= joke.type === 'twopart' ? `${joke.setup} ${joke.delivery}` : joke.joke %>
+      </p>
+      <div id="buttonsContainer">
+        <a href="/" class="btn">Categories</a>
+        <button id="getNewJokeBtn" class="btn" onclick="getNewJoke()">New Joke</button>
+      </div>
+
+    <% } else { %>
+      <p id="jokeText">Choose a joke category!</p>
+    <% } %>
+
+    <ul>
+      <% categories.forEach(category => { %>
+        <li>
+          <a href="/get-joke/<%= category %>"><%= category %></a>
+        </li>
+      <% }); %>
+    </ul>
+  </div>
+  <script src="/scripts.js"></script>
+</body>
+</html>
